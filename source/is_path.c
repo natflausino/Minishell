@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   is_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfico-vi <cfico-vi@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 21:51:19 by mde-figu          #+#    #+#             */
-/*   Updated: 2021/11/03 15:26:00 by cfico-vi         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	is_path(char **cmd, char **n_env)
+int is_path(char **cmd, char **n_env)
 {
-	int	c;
+	int c;
 
 	c = 0;
 	if (cmd[0][0] == '/')
@@ -25,7 +25,7 @@ int	is_path(char **cmd, char **n_env)
 	{
 		if (cmd[0][c] == '/')
 		{
-			if (cmd[0][c] + 1 == '\0' )
+			if (cmd[0][c] + 1 == '\0')
 				execve(cmd[0], cmd, n_env);
 		}
 		c++;

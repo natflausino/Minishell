@@ -10,27 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
-char	*get_path_str()
+char *get_path_str()
 {
 	int c;
 
 	c = 0;
 	while (g_shell.env->item[c] && c <= g_shell.env->size - 1)
 	{
-		if(!ft_strcmp(g_shell.env->item[c]->key, "PATH"))
-		return(g_shell.env->item[c]->value);
+		if (!ft_strcmp(g_shell.env->item[c]->key, "PATH"))
+			return (g_shell.env->item[c]->value);
 		c++;
 	}
 	return ("");
 }
 
-char	**get_paths()
+char **get_paths()
 {
 	char *paths;
 	char **ret;
-/* 	int	i;
+	/* 	int	i;
 
 	i = 0; */
 	paths = get_path_str();
@@ -41,14 +41,14 @@ char	**get_paths()
 	return (ret);
 }
 
-void	execute(char **cmd, int i)
+void execute(char **cmd, int i)
 {
-	char	**n_env;
+	char **n_env;
 	int status;
-	char	**paths;
-	pid_t	pid;
+	char **paths;
+	pid_t pid;
 	//int		fd[2];
-	int		c;
+	int c;
 	char **new_cmd;
 	char *new_path;
 
@@ -80,7 +80,7 @@ void	execute(char **cmd, int i)
 			perror("Error: ");
 			free_n_exit();
 		}
-		else if(pid == 0)
+		else if (pid == 0)
 		{
 			execve(*cmd, cmd, n_env);
 			errno = 2;
@@ -90,7 +90,7 @@ void	execute(char **cmd, int i)
 		if (WIFEXITED(status))
 			errno = WIFEXITED(status);
 	}
-	else if (execve(paths[0], cmd, n_env) == -1)   //<<<<<<<<<<EXECVE SEM PATH
+	else if (execve(paths[0], cmd, n_env) == -1) //<<<<<<<<<<EXECVE SEM PATH
 	{
 		pid = fork();
 		if (pid == -1)
@@ -98,7 +98,7 @@ void	execute(char **cmd, int i)
 			perror("Error: ");
 			free_n_exit();
 		}
-		else if(pid == 0)
+		else if (pid == 0)
 		{
 			new_cmd = (char **)malloc(sizeof(char **));
 			while (paths[c])
@@ -124,14 +124,14 @@ void	execute(char **cmd, int i)
 		ft_printf("%s: command not found\n", cmd[i]);
 	ft_free_split(n_env);
 	ft_free_split(paths);
-	if(new_cmd)
+	if (new_cmd)
 		ft_free_split(new_cmd);
 }
 
-char	*do_prompt(void)
+char *do_prompt(void)
 {
-	char	cwd[2048];
-	char	*prompt;
+	char cwd[2048];
+	char *prompt;
 
 	getcwd(cwd, 2048);
 	prompt = ft_strjoin(cwd, "$ ");
@@ -143,30 +143,30 @@ char	*do_prompt(void)
 	return (prompt);
 }
 
-void	free_n_env(char **n_env)
+void free_n_env(char **n_env)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (n_env)
 	{
 		while (n_env[i])
 		{
-			free (n_env[i]);
+			free(n_env[i]);
 			i++;
 		}
 		free(n_env);
 	}
-	return ;
+	return;
 }
 
-void	ft_free_split(char **str)
+void ft_free_split(char **str)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	if (!(str))
-		return ;
+		return;
 	while (*(str + ++i) != NULL)
 	{
 		free(*(str + i));
@@ -176,13 +176,13 @@ void	ft_free_split(char **str)
 	str = NULL;
 }
 
-void	save_origin_fd(int *save_fd)
+void save_origin_fd(int *save_fd)
 {
 	save_fd[0] = dup(0);
 	save_fd[1] = dup(1);
 }
 
-void	reset_fd(int *save_fd)
+void reset_fd(int *save_fd)
 {
 	dup2(save_fd[0], 0);
 	close(save_fd[0]);
@@ -190,9 +190,9 @@ void	reset_fd(int *save_fd)
 	close(save_fd[1]);
 }
 
-void	ms_pipe(char **cmd, int i,int *old_fd)
+void ms_pipe(char **cmd, int i, int *old_fd)
 {
-	int	fd[2];
+	int fd[2];
 	//int	save_fd[2];
 	dup2(*old_fd, STDIN);
 	if (old_fd != 0)
@@ -209,22 +209,22 @@ void	ms_pipe(char **cmd, int i,int *old_fd)
 	}
 }
 
-char	**cmd_till_pipe(char **cmd, int begin, int end)
+char **cmd_till_pipe(char **cmd, int begin, int end)
 {
-	char	**sub_cmd;
-	int		k;
+	char **sub_cmd;
+	int k;
 
 	k = 0;
 	sub_cmd = (char **)calloc((end - begin + 1), sizeof(char *));
 	while (begin != end)
 		sub_cmd[k++] = cmd[begin++];
 	sub_cmd[k] = NULL;
-	return(sub_cmd);
+	return (sub_cmd);
 }
 
-void	parser(char **cmd, int i, int *old_fd)
+void parser(char **cmd, int i, int *old_fd)
 {
-	int	save_fd[2];
+	int save_fd[2];
 	int c;
 	char **sub_cmd;
 
@@ -250,14 +250,14 @@ void	parser(char **cmd, int i, int *old_fd)
 		parser(cmd, i + 1, old_fd);
 }
 
-static void	loop(void)
+static void loop(void)
 {
-	char	**cmd;
-	char	*command;
-	char	*prompt;
-	int		i;
-	int		old_errno;
-	int		old_fd;
+	char **cmd;
+	char *command;
+	char *prompt;
+	int i;
+	int old_errno;
+	int old_fd;
 
 	i = 0;
 	while (1)
@@ -296,7 +296,7 @@ static void	loop(void)
 	}
 }
 
-int	main(int argc, char *argv[], char *envp[])
+int main(int argc, char *argv[], char *envp[])
 {
 	if (argc > 1 && argv)
 	{

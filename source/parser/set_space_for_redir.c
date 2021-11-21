@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   set_space_for_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfico-vi <cfico-vi@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 21:52:11 by mirkios           #+#    #+#             */
-/*   Updated: 2021/11/06 12:09:39 by cfico-vi         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*put_space_before(char *cmd, int i)
+char *put_space_before(char *cmd, int i)
 {
-	char	*ret;
-	int		j;
+	char *ret;
+	int j;
 
 	ret = ft_calloc(ft_strlen(cmd) + 1, sizeof(char *));
 	if (ret == NULL)
@@ -37,10 +37,10 @@ char	*put_space_before(char *cmd, int i)
 	return (ret);
 }
 
-char	*put_space_after(char *cmd, int i)
+char *put_space_after(char *cmd, int i)
 {
-	char	*ret;
-	int		j;
+	char *ret;
+	int j;
 
 	ret = ft_calloc(ft_strlen(cmd) + 1, sizeof(char *));
 	if (ret == NULL)
@@ -62,9 +62,9 @@ char	*put_space_after(char *cmd, int i)
 	return (ret);
 }
 
-char	*set_space_for_redir(char *cmd, int *i)
+char *set_space_for_redir(char *cmd, int *i)
 {
-	int		j;
+	int j;
 
 	if (*i != 0)
 	{

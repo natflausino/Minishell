@@ -6,13 +6,13 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:20:42 by cfico-vi          #+#    #+#             */
-/*   Updated: 2021/11/07 01:24:24 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-static char	**swap_var_ctrl_two(char **str_var, char *command, int idx, int i)
+static char **swap_var_ctrl_two(char **str_var, char *command, int idx, int i)
 {
 	str_var[0] = command;
 	str_var[1] = ft_substr(str_var[0], idx + 1, i - idx - 1);
@@ -25,7 +25,7 @@ static char	**swap_var_ctrl_two(char **str_var, char *command, int idx, int i)
 	return (str_var);
 }
 
-static char	**swap_var_ctrl_one(char **str_var, char *val, int i, int idx)
+static char **swap_var_ctrl_one(char **str_var, char *val, int i, int idx)
 {
 	str_var[2] = ft_substr(str_var[0], 0, idx);
 	if (str_var[2] == NULL)
@@ -54,11 +54,11 @@ static char	**swap_var_ctrl_one(char **str_var, char *val, int i, int idx)
 	return (str_var);
 }
 
-static char	*swap_var(char *command, int i, int idx)
+static char *swap_var(char *command, int i, int idx)
 {
-	char	*val;
-	char	**str_var;
-	int		j;
+	char *val;
+	char **str_var;
+	int j;
 
 	str_var = (char **)ft_calloc(6, sizeof(char *));
 	if (str_var == NULL)
@@ -80,19 +80,18 @@ static char	*swap_var(char *command, int i, int idx)
 	return (command);
 }
 
-char	*expand_var(char *command, int idx)
+char *expand_var(char *command, int idx)
 {
-	int		i;
+	int i;
 
 	i = idx + 1;
-	while (command[i] != ' ' && command[i] != D_QUOTE
-		&& command[i] != S_QUOTE && command[i] != '=' && (command[i]))
+	while (command[i] != ' ' && command[i] != D_QUOTE && command[i] != S_QUOTE && command[i] != '=' && (command[i]))
 		i++;
 	command = swap_var(command, i, idx);
 	return (command);
 }
 
-static char	*treat_quotes_ctrl(char *cmd, int *i, int q_id, t_joker_m *j_list)
+static char *treat_quotes_ctrl(char *cmd, int *i, int q_id, t_joker_m *j_list)
 {
 	if (i[4] > 0)
 		put_jokers_c(cmd, j_list, i, q_id);
@@ -105,9 +104,9 @@ static char	*treat_quotes_ctrl(char *cmd, int *i, int q_id, t_joker_m *j_list)
 	return (cmd);
 }
 
-static char	*treat_quotes(char *cmd, int *idx, int q_id, t_joker_m *j_list)
+static char *treat_quotes(char *cmd, int *idx, int q_id, t_joker_m *j_list)
 {
-	int		i[5];
+	int i[5];
 
 	i[0] = 0;
 	i[4] = 0;
@@ -132,10 +131,10 @@ static char	*treat_quotes(char *cmd, int *idx, int q_id, t_joker_m *j_list)
 	return (cmd);
 }
 
-static char	*check_second_quote(char *command, int *idx,
-												int q_id, t_joker_m *joker_list)
+static char *check_second_quote(char *command, int *idx,
+																int q_id, t_joker_m *joker_list)
 {
-	int		j;
+	int j;
 
 	j = *idx;
 	while (command[j++] != '\0')
@@ -143,13 +142,13 @@ static char	*check_second_quote(char *command, int *idx,
 		if (command[j] == q_id)
 		{
 			command = treat_quotes(command, idx, q_id, joker_list);
-			break ;
+			break;
 		}
 	}
 	return (command);
 }
 
-char	*treat_command_ctrl(char *cmd, t_joker_m *joker_list, int i)
+char *treat_command_ctrl(char *cmd, t_joker_m *joker_list, int i)
 {
 	if (cmd[i + 1] == D_QUOTE || cmd[i + 1] == S_QUOTE)
 		cmd[i] = ' ';
@@ -174,9 +173,9 @@ char	*treat_command_ctrl(char *cmd, t_joker_m *joker_list, int i)
 	return (cmd);
 }
 
-char	*treat_command(char *command, t_joker_m *joker_list)
+char *treat_command(char *command, t_joker_m *joker_list)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	while (command[i])
@@ -187,8 +186,7 @@ char	*treat_command(char *command, t_joker_m *joker_list)
 			command = check_second_quote(command, &i, D_QUOTE, joker_list);
 		else if (command[i] == S_QUOTE)
 			command = check_second_quote(command, &i, S_QUOTE, joker_list);
-		else if (command[i] == INPUT || command[i] == PIPE
-			|| command[i] == OUTPUT)
+		else if (command[i] == INPUT || command[i] == PIPE || command[i] == OUTPUT)
 		{
 			command = set_space_for_redir(command, &i);
 			if (command == NULL)

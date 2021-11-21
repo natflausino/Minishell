@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   hashtable.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfico-vi <cfico-vi@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 23:40:05 by csantos-          #+#    #+#             */
-/*   Updated: 2021/11/06 11:05:20 by cfico-vi         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:38 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-t_ht_item	*insert_table(char *key, char *value)
+t_ht_item *insert_table(char *key, char *value)
 {
-	t_ht_item	*new_item;
+	t_ht_item *new_item;
 
 	new_item = create_hash_item(key, value);
 	return (new_item);
 }
 
-static void	free_all(t_hash_table	*table)
+static void free_all(t_hash_table *table)
 {
-	int			i;
-	t_ht_item	*item;
+	int i;
+	t_ht_item *item;
 
 	i = 0;
 	if (table != NULL)
@@ -43,14 +43,14 @@ static void	free_all(t_hash_table	*table)
 	}
 }
 
-void	free_n_exit(void)
+void free_n_exit(void)
 {
 	free_all(g_shell.env);
 	free_all(g_shell.local);
-	exit (errno);
+	exit(errno);
 }
 
-void	free_item(t_ht_item *item)
+void free_item(t_ht_item *item)
 {
 	if (item->key)
 		free(item->key);
@@ -59,10 +59,10 @@ void	free_item(t_ht_item *item)
 	free(item);
 }
 
-t_hash_table	*create_hash_table(int size)
+t_hash_table *create_hash_table(int size)
 {
-	t_hash_table	*hashtable;
-	int				i;
+	t_hash_table *hashtable;
+	int i;
 
 	i = 0;
 	hashtable = (t_hash_table *)malloc(sizeof(t_hash_table));
@@ -73,8 +73,8 @@ t_hash_table	*create_hash_table(int size)
 	}
 	hashtable->size = size;
 	hashtable->count = 0;
-	hashtable->item = (t_ht_item **) ft_calloc(hashtable->size,
-			sizeof(t_ht_item*));
+	hashtable->item = (t_ht_item **)ft_calloc(hashtable->size,
+																						sizeof(t_ht_item *));
 	if (!hashtable->item)
 	{
 		perror("Error: ");
@@ -87,11 +87,11 @@ t_hash_table	*create_hash_table(int size)
 	return (hashtable);
 }
 
-t_ht_item	*create_hash_item(char *key, char *value)
+t_ht_item *create_hash_item(char *key, char *value)
 {
-	t_ht_item	*new;
+	t_ht_item *new;
 
-	new = (t_ht_item *) ft_calloc(sizeof(t_ht_item), 1);
+	new = (t_ht_item *)ft_calloc(sizeof(t_ht_item), 1);
 	if (!new)
 	{
 		perror("Error: ");
@@ -107,11 +107,11 @@ t_ht_item	*create_hash_item(char *key, char *value)
 	return (new);
 }
 
-char	*find_value(char *line)
+char *find_value(char *line)
 {
-	char	*value;
-	int		i;
-	int		j;
+	char *value;
+	int i;
+	int j;
 
 	i = 0;
 	while (line[i] != '=')
@@ -123,10 +123,10 @@ char	*find_value(char *line)
 	return (value);
 }
 
-char	*find_key(char *line)
+char *find_key(char *line)
 {
-	char	*key;
-	int		i;
+	char *key;
+	int i;
 
 	i = 0;
 	while (line[i] != '=')
@@ -135,13 +135,13 @@ char	*find_key(char *line)
 	return (key);
 }
 
-t_hash_table	*envp_to_hash(char **envp)
+t_hash_table *envp_to_hash(char **envp)
 {
-	t_hash_table	*table;
-	char			*key;
-	char			*value;
-	int				i;
-	int				j;
+	t_hash_table *table;
+	char *key;
+	char *value;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;

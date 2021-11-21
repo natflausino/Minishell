@@ -6,13 +6,13 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 16:20:42 by cfico-vi          #+#    #+#             */
-/*   Updated: 2021/11/07 00:16:16 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-static char	*expand_error_control_two(char **str_var, char *command)
+static char *expand_error_control_two(char **str_var, char *command)
 {
 	if (str_var[4] == NULL)
 	{
@@ -31,7 +31,7 @@ static char	*expand_error_control_two(char **str_var, char *command)
 	return (command);
 }
 
-static char	**expand_error_control_one(char **str_var)
+static char **expand_error_control_one(char **str_var)
 {
 	if (str_var[1] == NULL)
 	{
@@ -56,10 +56,10 @@ static char	**expand_error_control_one(char **str_var)
 	return (str_var);
 }
 
-char	*expand_error(char *command, int i)
+char *expand_error(char *command, int i)
 {
-	char	**str_var;
-	int		j;
+	char **str_var;
+	int j;
 
 	str_var = (char **)ft_calloc(6, sizeof(char *));
 	if (str_var == NULL)
@@ -81,8 +81,8 @@ char	*expand_error(char *command, int i)
 	return (command);
 }
 
-static char	**swap_spaces(char **splitted,
-												t_joker_m *lst, t_joker_m *tmp)
+static char **swap_spaces(char **splitted,
+													t_joker_m *lst, t_joker_m *tmp)
 {
 	while (lst->next_jok != NULL)
 	{
@@ -106,9 +106,9 @@ static char	**swap_spaces(char **splitted,
 	return (splitted);
 }
 
-static char	**unchange_jok_c(char **splitted, t_joker_m *lst)
+static char **unchange_jok_c(char **splitted, t_joker_m *lst)
 {
-	t_joker_m	*tmp;
+	t_joker_m *tmp;
 
 	tmp = NULL;
 	if (lst->next_jok != NULL)
@@ -120,7 +120,7 @@ static char	**unchange_jok_c(char **splitted, t_joker_m *lst)
 	return (swap_spaces(splitted, lst, tmp));
 }
 
-static void	split_command_control(char **split, t_joker_m *j_list, char *cmd)
+static void split_command_control(char **split, t_joker_m *j_list, char *cmd)
 {
 	if (split == NULL)
 	{
@@ -131,10 +131,10 @@ static void	split_command_control(char **split, t_joker_m *j_list, char *cmd)
 	}
 }
 
-char	**split_command(char *command)
+char **split_command(char *command)
 {
-	t_joker_m	*joker_list;
-	char		**splitted;
+	t_joker_m *joker_list;
+	char **splitted;
 
 	command = ft_strdup(command);
 	if (command == NULL)

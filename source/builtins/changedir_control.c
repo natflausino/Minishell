@@ -6,15 +6,15 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 20:07:08 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/11/08 20:10:28 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:38 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	control_cd_minus(char *tmp)
+void control_cd_minus(char *tmp)
 {
-	char	*old;
+	char *old;
 
 	old = search_hash_by_key("OLDPWD");
 	if (old)
@@ -31,12 +31,11 @@ void	control_cd_minus(char *tmp)
 	}
 }
 
-void	control_cd_minus_two(char **cmd, char *slash, char *home)
+void control_cd_minus_two(char **cmd, char *slash, char *home)
 {
 	if (ft_strncmp(cmd[1], "~-", 5) == 0)
 		chdir(search_hash_by_key("OLDPWD"));
-	else if (ft_strncmp(cmd[1], "~", 4) == 0
-		|| ft_strncmp(cmd[1], "--", 4) == 0)
+	else if (ft_strncmp(cmd[1], "~", 4) == 0 || ft_strncmp(cmd[1], "--", 4) == 0)
 		chdir(home);
 	else if (ft_strncmp(cmd[1], "/", 4) == 0)
 		chdir(slash);
@@ -46,7 +45,7 @@ void	control_cd_minus_two(char **cmd, char *slash, char *home)
 		chdir(cmd[1]);
 }
 
-void	cd_error_file(char **cmd)
+void cd_error_file(char **cmd)
 {
 	ft_putstr_fd("Minishell: cd: ", STDERR_FILENO);
 	ft_putstr_fd(cmd[1], STDERR_FILENO);

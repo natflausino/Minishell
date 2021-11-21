@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-figu <mde-figu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 17:22:53 by mde-figu          #+#    #+#             */
-/*   Updated: 2021/10/27 01:11:21 by mde-figu         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:38 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "libft.h"
 
-static int	word_len(const char *s, char c)
+static int word_len(const char *s, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (*s != '\0')
@@ -26,9 +26,9 @@ static int	word_len(const char *s, char c)
 	return (i);
 }
 
-static int	letter_len(const char *s, char c)
+static int letter_len(const char *s, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (*s != c && *s != '\0')
@@ -39,9 +39,9 @@ static int	letter_len(const char *s, char c)
 	return (i);
 }
 
-static int	**freeentry(char **str, size_t i)
+static int **freeentry(char **str, size_t i)
 {
-	size_t	j;
+	size_t j;
 
 	j = 0;
 	while (j <= i)
@@ -50,11 +50,11 @@ static int	**freeentry(char **str, size_t i)
 	return (0);
 }
 
-char	**ft_strsplit(char const *s, char c)
+char **ft_strsplit(char const *s, char c)
 {
-	char	**str;
-	size_t	i;
-	size_t	ii;
+	char **str;
+	size_t i;
+	size_t ii;
 
 	str = (char **)malloc(word_len(s, c));
 	if (!s || !str)

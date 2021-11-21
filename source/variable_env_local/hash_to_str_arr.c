@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   hash_to_str_arr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfico-vi <cfico-vi@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 15:24:49 by cfico-vi          #+#    #+#             */
-/*   Updated: 2021/11/03 15:25:18 by cfico-vi         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	**hash_to_str_arr(t_hash_table *n_env)
+char **hash_to_str_arr(t_hash_table *n_env)
 {
-	int		i;
-	int		j;
-	char	**ret;
-	char	*str_start;
+	int i;
+	int j;
+	char **ret;
+	char *str_start;
 
 	j = 0;
 	i = 0;

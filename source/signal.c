@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-figu <mde-figu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 13:11:02 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/11/06 00:21:04 by mde-figu         ###   ########.fr       */
+/*   Updated: 2021/11/20 20:39:23 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	interrupt(int signal)
 {
@@ -33,8 +33,8 @@ void	define_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-/* 
-g_shell.status_error: 
+/*
+g_shell.status_error:
 126 -> Permission Denied
 127 -> Command not found
 128 + signal -> Kill signal status
