@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int is_path(char **cmd, char **n_env)
+int	is_path(char **cmd, char **n_env)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	if (cmd[0][0] == '/')

@@ -193,14 +193,11 @@ void reset_fd(int *save_fd)
 void ms_pipe(char **cmd, int i, int *old_fd)
 {
 	int fd[2];
-	//int	save_fd[2];
 	dup2(*old_fd, STDIN);
 	if (old_fd != 0)
 		close(*old_fd);
-	//save_origin_fd(save_fd);
 	if (!(ft_strcmp(cmd[i], "|")))
 	{
-		//ft_putstr_fd("oiiiiii\n", 2);
 		pipe(fd);
 		dup2(fd[1], STDOUT);
 		close(fd[1]);
@@ -230,7 +227,6 @@ void parser(char **cmd, int i, int *old_fd)
 
 	c = i;
 	save_origin_fd(save_fd);
-
 	while (ft_strcmp(cmd[i], "|") && (cmd[i + 1]))
 		i++;
 	if (!(ft_strcmp(cmd[i], "|")))
@@ -287,11 +283,9 @@ static void loop(void)
 			add_history(command);
 			cmd = split_command(command);
 			free(command);
-			//verifica se tem redirect, troca stdin e stdout
 			parser(cmd, 0, &old_fd);
 			//execute(cmd);
 			//ft_free_split(cmd);
-			//volta o stdin e stdout originais
 		}
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-figu <mde-figu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:05:02 by mde-figu          #+#    #+#             */
-/*   Updated: 2021/11/18 23:17:45 by mde-figu         ###   ########.fr       */
+/*   Updated: 2021/11/21 02:28:42 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ t_hash_table	*create_hash_table(int size);
 t_ht_item		*create_hash_item(char *key, char*value);
 t_ht_item		*insert_table(char *key, char *value);
 t_hash_table	*envp_to_hash(char **envp);
-void			free_item(t_ht_item *item);
+void			free_all(t_hash_table *table);
 void			free_table(t_hash_table *table);
 void			free_n_exit(void);
 void			free_item(t_ht_item *item);
