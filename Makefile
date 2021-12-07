@@ -6,7 +6,7 @@
 #    By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 18:43:52 by nbarreir          #+#    #+#              #
-#    Updated: 2021/12/07 19:40:48 by nbarreir         ###   ########.fr        #
+#    Updated: 2021/12/07 20:42:59 by nbarreir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,24 @@ all: $(NAME)
 $(NAME): $(OBJ)
 		make -C $(LIBFT)
 		gcc $(CFLAGS) -g -o $(NAME) $(SRC) -L $(LIBFT) -lft -lreadline -I includes -fsanitize=address
+	@echo "\033[32m   _____  _______  _        _  \033[0m"
+	@sleep 1
+	@echo "\033[32m  / ___| |  _____\| |      | |  \033[0m"
+	@sleep 1
+	@echo "\033[32m | |     | |      | |      | |  \033[0m"
+	@sleep 1
+	@echo "\033[32m | |___  | |__    | |      | | \033[0m"
+	@sleep 1
+	@echo "\033[32m  \___  \|  __|   | |      | | \033[0m"
+	@sleep 1
+	@echo "\033[32m      | || |      | |      | |\033[0m"
+	@sleep 1
+	@echo "\033[32m   ___| || |______| |______| |______ \033[0m"
+	@sleep 1
+	@echo "\033[32m  |____/ |_______/|_______/|_______/    \033[0m"
+	@sleep 1
+	@echo "\033[35m  =====================================\033[0m"
+	@echo "  Welcome to our Hell............\033[32m[DONE]\033[0m\n"
 
 %.o: %.c
 		gcc -c $< -I includes
@@ -65,12 +83,14 @@ git:
 #make git m="blablabla"
 
 clean:
-		make clean -C $(LIBFT)
-		rm -f $(OBJ)
+	make clean -C $(LIBFT)
+	rm -f $(OBJ)
+	@echo "  Cleaning objects...............................\033[32m[DONE]\033[0m"
 
 fclean: clean
-		make fclean -C $(LIBFT)
-		rm -f $(NAME) $(OBJ)
+	make fclean -C $(LIBFT)
+	rm -f $(NAME) $(OBJ)
+	@echo "  Deleting Application...........................\033[32m[DONE]\033[0m\n"
 
 re: fclean all
 
