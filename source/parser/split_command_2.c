@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 16:20:42 by cfico-vi          #+#    #+#             */
-/*   Updated: 2021/11/21 02:02:39 by nbarreir         ###   ########.fr       */
+/*   Created: 2021/12/07 18:45:45 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 18:45:47 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*expand_quote_var(char *command, int *idx, int q_id)
 	while (command[++i] != q_id)
 	{
 		if (command[i] == '$' && command[i + 1] != S_QUOTE)
-			command = expand_var(command, i);
+			command = expand_var(command, i--);
 	}
 	return (command);
 }

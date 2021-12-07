@@ -5,12 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/08 23:00:43 by csantos-          #+#    #+#             */
-/*   Updated: 2021/11/21 02:26:08 by nbarreir         ###   ########.fr       */
+/*   Created: 2021/12/07 18:44:32 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 18:44:34 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static char	**new_cmd_if_not_var(char **cmd, int i)
+{
+	if (cmd[i])
+	{
+		free(cmd[0]);
+		cmd[0] = ft_strdup(cmd[i]);
+	}
+	else
+		perror("Error: ");
+	return (cmd);
+}
 
 int	ft_isvar(char **cmd)
 {
@@ -27,10 +39,7 @@ int	ft_isvar(char **cmd)
 		if (cmd[i][j] != '=' || j == 0)
 		{
 			if (i > 0)
-			{
-				free(cmd[0]);
-				cmd[0] = ft_strdup(cmd[i]);
-			}
+				cmd = new_cmd_if_not_var(cmd, i);
 			return (FALSE);
 		}
 		i++;

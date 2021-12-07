@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 01:18:15 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/11/20 20:39:38 by nbarreir         ###   ########.fr       */
+/*   Created: 2021/12/07 18:46:45 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 18:46:47 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	sort_alpha(char **str)
 	char	*aux;
 
 	x = 0;
-	printf("entrou\n");
 	while (str[x])
 	{
 		y = 0;
@@ -107,4 +106,5 @@ void	export_only(void)
 		c++;
 	}
 	print_export_env(export_env, STDOUT_FILENO);
+	ft_free_split(export_env);
 }
