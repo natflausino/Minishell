@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csantos- <csantos-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/07 21:04:23 by mde-figu          #+#    #+#             */
-/*   Updated: 2021/10/17 00:05:43 by csantos-         ###   ########.fr       */
+/*   Created: 2021/12/07 19:03:50 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 19:03:52 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ int					ft_strcmp(const char *s1, const char *s2);
 char				**ft_strsplit(char const *s, char c);
 int					ft_strnstr_indie(const char *big, const char *small,
 						size_t len);
-char **			ft_strsplit(char const *s, char c);
+char				**ft_strsplit(char const *s, char c);
 #endif

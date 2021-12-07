@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mde-figu <mde-figu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 11:05:02 by mde-figu          #+#    #+#             */
-/*   Updated: 2021/11/18 23:17:45 by mde-figu         ###   ########.fr       */
+/*   Created: 2021/12/07 18:47:15 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 18:47:16 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # define INT_MAX 2147483647
-# define HASH_SIZE 256 //ver se vai precisar depois
 
 # define NONE 0
 # define ENV 1
@@ -33,6 +32,8 @@
 # define STDOUT 1
 # define STDERR 2
 
+# define FILE_TMP "/tmp/mr_temporary_file"
+
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -45,16 +46,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libraries/libft/libft.h"
-
-// typedef struct s_pos
-// {
-// 	int	pos_echo;
-// 	int pos_cd;
-// 	int pos_pwd;
-// 	int	pos_exp;
-// 	int pos_uset;
-// 	int pos_env;
-// } t_pos;
 
 typedef struct s_cd
 {
@@ -78,17 +69,16 @@ typedef struct s_ht_item
 	char	*value;
 }	t_ht_item;
 
-typedef struct s_hash_table
+typedef struct s_array_table
 {
-	t_ht_item	**item;
-	int			size;
-	int			count; //o que que é count??
-}	t_hash_table;
+	t_ht_item		**item;
+	int				size;
+}	t_array_table;
 
 typedef struct s_shell
 {
-	t_hash_table	*env;
-	t_hash_table	*local;
+	t_array_table	*env;
+	t_array_table	*local;
 	int				status_error;
 }	t_shell;
 
@@ -99,11 +89,29 @@ t_shell	g_shell;
 */
 void			ft_free_split(char **str);
 void			free_n_env(char **n_env);
-void			execute(char **command, int i);
+void			execute(char **command, char **old_cmd);
 void			quote_commander(char **cmd);
-void			delete_item(t_hash_table *table, char *key);
+void			delete_item(t_array_table *table, char *key);
 void			parser(char **cmd, int i, int *old_fd);
-void			ms_pipe(char **cmd, int i, int *old_fd);
+
+/*
+** PIPE AND REDIRECT
+*/
+void			miss_pipe(char **cmd, int i, int *old_fd);
+char			**cmd_till_pipe(char **cmd, int begin, int end);
+
+char			**make_command_redirect(char **cmd, int i, int *save_fd);
+void			mister_redirect(char *redirect, char *file, int *save_fd);
+int				is_redirect(char *cmd);
+int				have_file_after_redirect(char **cmd);
+void			dr_here(char *eof, int *save_fd);
+void			interrupt(int signal);
+
+/*
+** FD
+*/
+void			save_origin_fd(int *save_fd);
+void			reset_fd(int *save_fd);
 
 /*
 ** SET SPACE FOR REDIR
@@ -122,36 +130,38 @@ int				echo(char **cmd);
 void			expt(char **cmd, int exp);
 void			export_only(void);
 void			unset_(char **cmd);
-void			exit_terminal(char **cmd, char	**n_env);
+void			exit_terminal(char **cmd, char	**n_env, char **old_cmd);
 
-void	cd_error_file(char **cmd);
-void	control_cd_minus_two(char **cmd, char *slash, char *home);
-void	control_cd_minus(char *tmp);
-char	*put_quotes(t_ht_item *new_env);
-char	**env_with_quotes(void);
-void	print_export_env(char **array, int fd);
-void	error_export(char **cmd, int i);
-
+void			cd_error_file(char **cmd);
+void			control_cd_minus_two(char **cmd, char *slash, char *home);
+void			control_cd_minus(char *tmp);
+char			*put_quotes(t_ht_item *new_env);
+char			**env_with_quotes(void);
+void			print_export_env(char **array, int fd);
+void			error_export(char **cmd, int i);
+int				is_builtins(char **cmd);
+void			builtins(char **cmd, char **old_cmd, char **n_env);
 
 /*
-** HASH TABLE
+** ARRAY TABLE
 */
-char			*search_hash_by_key(char *key);
-void			modify_hash_by_key(char *key, char *new_val);
+char			*search_array_by_key(char *key);
+void			modify_array_by_key(char *key, char *new_val);
 char			*find_key(char *line);
 char			*find_value(char *line);
-t_hash_table	*create_hash_table(int size);
-t_ht_item		*create_hash_item(char *key, char*value);
+t_array_table	*create_array_table(int size);
+t_ht_item		*create_array_item(char *key, char*value);
 t_ht_item		*insert_table(char *key, char *value);
-t_hash_table	*envp_to_hash(char **envp);
+t_array_table	*envp_to_array(char **envp);
 void			free_item(t_ht_item *item);
-void			free_table(t_hash_table *table);
+void			free_table(t_array_table *table);
 void			free_n_exit(void);
 void			free_item(t_ht_item *item);
 int				loop_table_n_insert(char *key, char *value, int table);
 int				modify_table_by_key(int table, char *key, char *value);
 int				which_table_by_key(char *key);
-void			change_val_by_table(t_hash_table *table, char *key, char *value, int c);
+void			change_val_by_table(t_array_table *table, char *key,
+					char *value, int c);
 
 /*
 ** SIGNAL
@@ -173,14 +183,24 @@ int				count_string(char *command, int *idx, int *i, int q_id);
 char			*expand_quote_var(char *command, int *idx, int q_id);
 char			*expand_error(char *command, int i);
 void			free_joker_list(t_joker_m *lst);
+char			*swap_var(char *command, int i, int idx);
+
+/*
+** PATH HANDLERS
+*/
+char			*get_path_str(void);
+char			**get_paths(void);
+char			*do_prompt(void);
+int				is_path(char **cmd, char **n_env);
+char			**create_command_for_exec(char **cmd, char **paths);
+void			do_exec(char **cmd, char **n_env);
 
 /*
 ** UTILS
 */
-int				is_path(char **cmd, char **n_env);
 int				ft_isvar(char **cmd);
 int				ft_strnstr_indie(const char *big, const char *small,
 					size_t len);
-char			**hash_to_str_arr(t_hash_table *n_env);
+char			**array_to_str_arr(t_array_table *n_env);
 
 #endif

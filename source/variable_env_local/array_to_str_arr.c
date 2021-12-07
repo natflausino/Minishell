@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_to_str_arr.c                                  :+:      :+:    :+:   */
+/*   array_to_str_arr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 15:24:49 by cfico-vi          #+#    #+#             */
-/*   Updated: 2021/11/20 20:39:37 by nbarreir         ###   ########.fr       */
+/*   Created: 2021/12/07 18:44:49 by nbarreir          #+#    #+#             */
+/*   Updated: 2021/12/07 18:44:51 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char **hash_to_str_arr(t_hash_table *n_env)
+char	**array_to_str_arr(t_array_table *n_env)
 {
-	int i;
-	int j;
-	char **ret;
-	char *str_start;
+	int		i;
+	int		j;
+	char	**ret;
+	char	*str_start;
 
 	j = 0;
 	i = 0;

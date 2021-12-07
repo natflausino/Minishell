@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int cd_args(char **cmd, int i)
+static int	cd_args(char **cmd, int i)
 {
 	while (cmd[i])
 		i++;
@@ -24,27 +24,27 @@ static int cd_args(char **cmd, int i)
 	return (i);
 }
 
-static void cd_home(t_cd *cd_list)
+static void	cd_home(t_cd *cd_list)
 {
 	if (cd_list->i == 1)
 	{
-		modify_hash_by_key("OLDPWD", cd_list->tmp);
+		modify_array_by_key("OLDPWD", cd_list->tmp);
 		chdir(cd_list->home);
 	}
 }
 
-static void cd_init(t_cd *cd_list, char **cmd)
+static void	cd_init(t_cd *cd_list, char **cmd)
 {
 	cd_list->i = cd_args(cmd, 1);
 	cd_list->tmp = NULL;
-	cd_list->home = search_hash_by_key("HOME");
+	cd_list->home = search_array_by_key("HOME");
 	cd_list->slash = "/";
 	errno = 0;
 }
 
-int cd(char **cmd)
+int	cd(char **cmd)
 {
-	t_cd cd_list;
+	t_cd	cd_list;
 
 	cd_init(&cd_list, cmd);
 	if (errno == EPERM)
@@ -61,7 +61,7 @@ int cd(char **cmd)
 		}
 		else
 			control_cd_minus_two(cmd, cd_list.slash, cd_list.home);
-		modify_hash_by_key("OLDPWD", cd_list.tmp);
+		modify_array_by_key("OLDPWD", cd_list.tmp);
 		if (errno == ENOENT)
 			cd_error_file(cmd);
 	}
