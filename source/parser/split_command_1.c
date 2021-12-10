@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:45:52 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/07 18:45:54 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/10 04:35:34 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ char	*treat_command(char *command, t_joker_m *joker_list)
 	i = 0;
 	while (command[i])
 	{
-		if (command[i] == '$')
+		if (command[i] == '$' && command[i + 1] != '\0'
+			&& command[i + 1] != ' ')
 			command = treat_command_ctrl(command, joker_list, i--);
 		else if (command[i] == D_QUOTE)
 			command = check_second_quote(command, &i, D_QUOTE, joker_list);

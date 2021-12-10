@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:45:01 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/08 19:52:19 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/07 18:45:03 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ static void	mr_redirect_in(char *file, int flag)
 		ft_putendl_fd("Error: bad file decriptor", 2);
 	}
 	else
-	{
 		dup2(file_fd, STDIN);
-		close(file_fd);
-	}
 }
 
 void	mister_redirect(char *redirect, char *file, int *save_fd)

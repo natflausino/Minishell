@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 20:07:08 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/10 02:18:22 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/10 04:34:22 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	control_cd_minus_two(char **cmd, char *slash, char *home)
 {
 	if (ft_strncmp(cmd[1], "~-", 5) == 0)
 		chdir(search_array_by_key("OLDPWD"));
-	else if (ft_strncmp(cmd[1], "~", 4) == 0 \
+	else if (ft_strncmp(cmd[1], "~", 4) == 0
 		|| ft_strncmp(cmd[1], "--", 4) == 0)
 		chdir(home);
 	else if (ft_strncmp(cmd[1], "/", 4) == 0)

@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:47:15 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/08 02:47:39 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/10 03:59:39 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int				is_redirect(char *cmd);
 int				have_file_after_redirect(char **cmd);
 void			dr_here(char *eof, int *save_fd);
 void			interrupt(int signal);
+void			define_signals_exec(void);
 
 /*
 ** FD

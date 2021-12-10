@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:46:19 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/07 18:46:20 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/10 04:02:24 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	do_exec(char **cmd, char **n_env)
 
 	paths = get_paths();
 	new_cmd = NULL;
+	define_signals_exec();
 	pid = fork();
 	if (pid == -1)
 	{
@@ -81,8 +82,7 @@ void	do_exec(char **cmd, char **n_env)
 		execve_error(cmd[0]);
 	}
 	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		errno = WIFEXITED(status);
+	errno = WEXITSTATUS(status);
 	ft_free_split(paths);
 	if (new_cmd)
 		ft_free_split(new_cmd);

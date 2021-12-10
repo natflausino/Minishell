@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:45:16 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/08 21:23:49 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/10 04:36:55 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	interrupt_here_document(int signal)
 
 void	dr_here(char *eof, int *save_fd)
 {
-	int		file_tmp;
-	int		status;
-	int		save_out;
-	int		pid;
+	int	file_tmp;
+	int	status;
+	int	save_out;
+	int	pid;
 
 	save_out = dup(STDOUT);
 	dup2(save_fd[0], STDIN);
@@ -79,10 +79,9 @@ void	dr_here(char *eof, int *save_fd)
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-			errno = WIFEXITED(status);
+		errno = WIFEXITED(status);
 	file_tmp = open(FILE_TMP, O_RDONLY);
 	dup2(file_tmp, STDIN);
-	close(file_tmp);
 	dup2(save_out, STDOUT);
 	close(save_out);
 }
