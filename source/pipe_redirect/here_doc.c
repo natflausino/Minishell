@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:45:16 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/07 18:45:18 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/08 21:23:49 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	dr_here(char *eof, int *save_fd)
 
 	save_out = dup(STDOUT);
 	dup2(save_fd[0], STDIN);
+	dup2(save_fd[1], STDOUT);
 	file_tmp = create_mr_temporary_file();
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
@@ -81,6 +82,7 @@ void	dr_here(char *eof, int *save_fd)
 			errno = WIFEXITED(status);
 	file_tmp = open(FILE_TMP, O_RDONLY);
 	dup2(file_tmp, STDIN);
+	close(file_tmp);
 	dup2(save_out, STDOUT);
 	close(save_out);
 }

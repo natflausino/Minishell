@@ -6,7 +6,7 @@
 /*   By: nbarreir <nbarreir@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 18:47:15 by nbarreir          #+#    #+#             */
-/*   Updated: 2021/12/07 18:47:16 by nbarreir         ###   ########.fr       */
+/*   Updated: 2021/12/08 02:47:39 by nbarreir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ void			free_item(t_ht_item *item);
 int				loop_table_n_insert(char *key, char *value, int table);
 int				modify_table_by_key(int table, char *key, char *value);
 int				which_table_by_key(char *key);
+void			insert_or_modify_by_key(char *key, char *new_val);
 void			change_val_by_table(t_array_table *table, char *key,
 					char *value, int c);
 
